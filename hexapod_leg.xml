@@ -1,0 +1,59 @@
+<mujoco model="hexapod_leg">
+    <compiler meshdir="meshes" angle="degree" /> <asset>
+        <mesh name="Frame" file="Frame.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="ServoCoxa" file="ServoCoxa.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="Coxa" file="Coxa.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="ServoFemur" file="ServoFemur.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="Femur" file="Femur.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="ServoTibia" file="ServoTibia.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="Tibia" file="Tibia.stl" scale="0.001 0.001 0.001"/>
+
+        <texture name="checker_texture" type="2d" builtin="checker" width="512" height="512"
+                 rgb1="0.7 0.7 0.7" rgb2="0.4 0.4 0.4" mark="none"/> <material name="floor_material" texture="checker_texture" texrepeat="10 10" texuniform="true"
+                  shininess="0.0" reflectance="0.0"/> <material name="robot_material" rgba="0.6 0.7 0.8 1" shininess="0.1" reflectance="0.05"/>
+        </asset>
+
+    <worldbody>
+        <light name="main_light" pos="0.8 -0.8 2.0" dir="-0.3 0.3 -1" diffuse="0.7 0.7 0.7" specular="0.2 0.2 0.2" active="true" castshadow="true"/>
+
+        <light name="fill_light" pos="-0.5 0.5 1.0" dir="0.2 -0.2 -1" diffuse="0.3 0.3 0.3" specular="0 0 0" active="true" castshadow="false"/>
+
+        <body name="floor" pos="0 0 0">
+            <geom type="plane" size="1 1 0.1" material="floor_material" conaffinity="1" contype="1"/>
+        </body>
+
+        <body name="Frame" pos="0 0 0.1"> <geom type="mesh" mesh="Frame" material="robot_material" conaffinity="1" contype="2"/>
+            <body name="ServoCoxa">
+            	<geom type="mesh" mesh="ServoCoxa" material="robot_material" conaffinity="1" contype="2"/>
+            	<joint name="joint_1" pos="0.0542 -0.0939 0.0025" axis="0 0 1" limited="true" range="-90 90"/>
+            	<body name="Coxa">
+            		<geom type="mesh" mesh="Coxa" material="robot_material" conaffinity="1" contype="2"/>
+            		<body name="ServoFemur">
+            			<geom type="mesh" mesh="ServoFemur" material="robot_material" conaffinity="1" contype="2"/>
+            			<joint name="joint_2" pos="0.1146 -0.1126 0.0118" axis="0 -1 0" limited="true" range="-90 90"/>
+	            		<body name="Femur">
+		            		<geom type="mesh" mesh="Femur" material="robot_material" conaffinity="1" contype="2"/>
+                            <body name="ServoTibia">
+                                <geom type="mesh" mesh="ServoTibia" material="robot_material" conaffinity="1" contype="2"/>
+                                <joint name="joint_3" pos="0.1959 -0.1126 0.0118" axis="0 -1 0" limited="true" range="-90 90"/>
+                                <body name="Tibia">
+                                    <geom type="mesh" mesh="Tibia" material="robot_material" conaffinity="1" contype="2"/>
+                                </body>
+                            </body>
+	            		</body>
+            		</body>
+            	</body>
+            </body>
+        </body>
+    </worldbody>
+
+    <contact>
+        <exclude body1="Frame" body2="ServoCoxa"/>
+        <exclude body1="ServoCoxa" body2="Coxa"/>
+        <exclude body1="Coxa" body2="ServoFemur"/>
+        <exclude body1="ServoFemur" body2="Femur"/>
+        <exclude body1="Femur" body2="ServoTibia"/>
+        <exclude body1="ServoTibia" body2="Tibia"/>
+    </contact>
+
+</mujoco>

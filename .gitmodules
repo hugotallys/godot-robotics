@@ -1,0 +1,3 @@
+[submodule "BVHView"]
+	path = BVHView
+	url = git@github.com:orangeduck/BVHView.git

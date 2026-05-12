@@ -35,3 +35,38 @@ pip install -r requirements.txt
 ```bash
 mjpython simulate_arm.py
 ```
+
+---
+
+## BVH Viewer
+
+[BVHView](https://theorangeduck.com/page/bvhview) is a `.bvh` animation file viewer built with [raylib](https://www.raylib.com/) and included as a submodule under `BVHView/`.
+
+### Setup and run (macOS)
+
+A setup script handles all dependencies, builds the viewer, and launches it in one step:
+
+```bash
+./setup_bvhview.sh [path/to/file.bvh]
+```
+
+The script will:
+1. Check for Xcode Command Line Tools (`make` and `clang`) — if missing, it will prompt you to install them and exit. Re-run after installation.
+2. Clone [raylib](https://github.com/raysan5/raylib) and [raygui](https://github.com/raysan5/raygui) into `~/raylib/` (skipped if already present).
+3. Build raylib for the desktop platform (skipped if already built).
+4. Initialise the `BVHView` submodule if needed, then build `BVHView/bvhview`.
+5. Launch the viewer, forwarding any arguments (e.g. a `.bvh` file path) directly to the binary.
+
+Any argument passed to the script is forwarded to the `bvhview` binary, so you can open a file directly:
+
+```bash
+./setup_bvhview.sh motion_capture/walk.bvh
+```
+
+### Running the pre-built binary
+
+Once the binary is built, you can run it directly without the setup script:
+
+```bash
+./BVHView/bvhview [path/to/file.bvh]
+```

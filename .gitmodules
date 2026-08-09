@@ -1,9 +1,0 @@
-[submodule "BVHView"]
-	path = BVHView
-	url = git@github.com:orangeduck/BVHView.git
-[submodule "mujoco_menagerie"]
-	path = mujoco_menagerie
-	url = https://github.com/google-deepmind/mujoco_menagerie.git
-[submodule "masters"]
-	path = masters
-	url = https://github.com/hugotallys/masters

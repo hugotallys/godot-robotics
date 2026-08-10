@@ -6,7 +6,10 @@ A four-part series on learning discrete representations of MNIST digits. Each pa
 
 **The arc of the series:**
 
-Part 1 builds a plain autoencoder and shows you what a continuous latent space looks like — and where it fails. Part 2 fixes the "holes in the latent space" problem probabilistically with a VAE. Part 3 replaces the continuous latent with a *discrete codebook* (VQ-VAE), which forces you to confront two beautiful problems: how do you backpropagate through a non-differentiable lookup (straight-through estimation), and how do you keep the codebook alive (codebook collapse). Part 4 harvests the reward: the discrete codes turn out to encode digit identity well enough that you can cluster 1s, 2s, and 3s *without ever seeing a label*.
+- Part 1 builds a plain autoencoder and shows you what a continuous latent space looks like — and where it fails.
+- Part 2 fixes the "holes in the latent space" problem probabilistically with a VAE.
+- Part 3 replaces the continuous latent with a *discrete codebook* (VQ-VAE), which forces you to confront two beautiful problems: how do you backpropagate through a non-differentiable lookup (straight-through estimation), and how do you keep the codebook alive (codebook collapse).
+- Part 4 harvests the reward: the discrete codes turn out to encode digit identity well enough that you can cluster 1s, 2s, and 3s *without ever seeing a label*.
 
 ---
 
@@ -14,7 +17,7 @@ Part 1 builds a plain autoencoder and shows you what a continuous latent space l
 
 ### 1.1 The idea
 
-An autoencoder is two functions trained jointly. An encoder `E` maps an image `x` (28×28 = 784 dimensions for MNIST) to a low-dimensional latent vector `z = E(x)`, and a decoder `D` maps `z` back to an image `x̂ = D(z)`. The training objective is simply: make `x̂` look like `x`.
+An autoencoder is two functions trained jointly. An encoder $E$ maps an image $x$ (28×28 = 784 dimensions for MNIST) to a low-dimensional latent vector $z = E(x)$, and a decoder $D$ maps $z$ back to an image $\hat{x} = D(z)$. The training objective is simply: make $\hat{x}$ look like $x$.
 
 The interesting part is the *bottleneck*. If the latent dimension is much smaller than 784 (say, 2 to 32 dimensions), the network cannot memorize pixels — it is forced to discover the factors that matter: stroke shape, slant, thickness, and, implicitly, digit identity. Compression *is* representation learning. Everything in this series is a variation on how we constrain and structure that bottleneck.
 
